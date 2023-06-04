@@ -47,6 +47,17 @@
       width: 122px;
     }
   </style>
+
+  <script src="https://cdn.trackjs.com/agent/v3/latest/t.js"></script>
+  <script>
+    window.TrackJS && TrackJS.install({ 
+      token: "7e6c745cecc14c2080278e7aea461499",
+      application: "console-buttons"
+      // for more configuration options, see https://docs.trackjs.com
+    });
+    TrackJS.track('Testing TrackJS!');
+  </script>
+
 </head>
 
 <body>
@@ -102,6 +113,173 @@
 
     // Start your code here
     // You may move this JS to another file if you wish
+
+    /* Step 2 - Adding Buttons for Console Testing
+     * Now for each of the buttons in the starter code give functionality to them that correspond to each of the `console` 
+     * methods we listed previously (console.log, console.error, console.table, console.dir, console.dirxml, console.group
+     * (includes related functions to use properly), console.time / console.timeEnd,  and console.trace.).
+     * The idea being is you press a button that says "Console Log Demo" and it performs that method on some data in your example.
+     */
+
+    let consoleLogBtn = errorBtns[0];
+    let consoleErrorBtn = errorBtns[1];
+    let consoleCountBtn = errorBtns[2];
+    let consoleWarnBtn = errorBtns[3];
+    let consoleAssertBtn = errorBtns[4];
+    let consoleClearBtn = errorBtns[5];
+    let consoleDirBtn = errorBtns[6];
+    let consoleDirxmlBtn = errorBtns[7];
+    let consoleGroupStartBtn = errorBtns[8];
+    let consoleGroupEndBtn = errorBtns[9];
+    let consoleTableBtn = errorBtns[10];
+    let startTimerBtn = errorBtns[11];
+    let endTimerBtn = errorBtns[12];
+    let consoleTraceBtn = errorBtns[13];
+    let triggerGlobalErrorBtn = errorBtns[14];
+
+    consoleLogBtn.addEventListener('click', () => {
+      console.log('Console Log Demo');
+    });
+
+    consoleErrorBtn.addEventListener('click', () => {
+      console.error('Console Error Demo');
+    });
+
+    consoleCountBtn.addEventListener('click', () => {
+      console.count('Count button');
+    });
+
+    consoleWarnBtn.addEventListener('click', () => {
+      console.warn('Console Warn Button');
+    });
+
+    consoleAssertBtn.addEventListener('click', () => {
+      console.assert(2 === '2', "{Assertion: 2 === '2', The number 2 doesn't equals '2'}");
+    });
+
+    consoleClearBtn.addEventListener('click', () => {
+      console.clear();
+    });
+
+    consoleDirBtn.addEventListener('click', () => {
+      console.dir(document.querySelectorAll('#error-btns > button'));
+    });
+
+    consoleDirxmlBtn.addEventListener('click', () => {
+      console.dirxml(errorBtns[7]);
+    });
+
+    consoleGroupStartBtn.addEventListener('click', () => {
+      console.group('console.group');
+    });
+
+    consoleGroupEndBtn.addEventListener('click', () => {
+      console.groupEnd();
+    });
+
+    consoleTableBtn.addEventListener('click', () => {
+      console.table([{
+        name: 'John',
+        dob: '01-01-1995'
+      }, {
+        name: 'Jane',
+        dob: '12-12-2012'
+      }]);
+    });
+
+    startTimerBtn.addEventListener('click', () => {
+      console.time('Timer Button');
+    });
+
+    endTimerBtn.addEventListener('click', () => {
+      console.timeEnd('Timer Button');
+    });
+
+    consoleTraceBtn.addEventListener('click', function handleBtnClick () {
+      let deep = () => { deeper(); };
+      let deeper = () => { deepest(); };
+      let deepest = () => { console.trace(); };
+      deep();
+    });
+
+    /* Step 3 - Trying Try/Catch
+     * Next explore the use of try/catch/finally and throw in your program.  Before you do this, read the article referenced
+     * as it may work differently than Java.  To trigger an error you may need to do something like comment out a DOM node 
+     * with an HTML comment or manipulate the program unexpectedly.  Try to make your example more realistic than just 
+     * inserting some code like aintGonnaWork(); and watching it error. 
+     */
+
+    let json = '{ "number": 20 }';
+    try {
+
+      let num = JSON.parse(json);
+
+      if(!isNaN(num.number)) {
+        console.log("20 is a number");
+      }
+
+    } catch (error) {
+      if(error instanceof SyntaxError) {
+        alert("JSON Error: " + error.message);
+      } else {
+        throw error;
+      }
+    } finally {
+      console.error('finally');
+    }
+
+
+
+
+
+    /* Step 4 - Throw and Custom Errors
+     * Now explore the use of `throw` and extending the Error object to use a custom error type.  The article here does a 
+     * good job of explaining how this goes: Custom errors, extending Error (javascript.info)Links to an external site.
+     */
+    
+    class ValidationError extends Error {
+      constructor(message) {
+        super(message);
+        this.name = "ValidationError";
+      }
+    }
+
+    // Working example with try..catch
+
+    try {
+      if (isNaN(document.getElementById('first-num'))) {
+        throw new ValidationError("First input is not an number");
+      }
+      if (isNaN(document.getElementById('second-num'))) {
+        throw new ValidationError("Second input is not an number");
+      }
+    } catch (err) {
+      if (err instanceof ValidationError) {
+        alert("Invalid data: " + err.message);
+      } else if (err instanceof SyntaxError) {
+        alert("JSON Syntax Error: " + err.message);
+      } else {
+        throw err; // unknown error, rethrow it
+      }
+    }
+
+    /* Step 5 - The Global Error handler and 3rd Party Tracking
+     * It has long been possible to catch errors happening client side and transmit those errors some place else.  The Professor 
+     * wrote a book many many years ago that has a demo that shows this happening directly -  
+     * http://ajaxref.com/ch2/jserrorreporter.htmlLinks to an external site. In the example you'll notice the use of window.onerror and how once that 
+     * is caught you can collect the message and send it some place using `fetch` or `XMLHttpRequest` APIs.  First demonstrate 
+     * that you see how to catch such an error that way in a simple manner and just log a message to console.
+     */
+
+    
+    window.onerror = function(message, url, line, col, error) {
+      alert(`${message}\n At ${line}:${col} of ${url}`);
+    };
+
+    let doNothing = () => {
+      bad_call();           // Doesn't exists
+    }
+
   </script>
 </body>
 

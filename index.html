@@ -271,15 +271,20 @@
      * that you see how to catch such an error that way in a simple manner and just log a message to console.
      */
 
+    triggerGlobalErrorBtn.addEventListener('click', function handleBtnClick() {
+      console.log('Triggering a global error');
+      boom();                  // Doesn't exists
+    });
     
     window.onerror = function(message, url, line, col, error) {
       alert(`${message}\n At ${line}:${col} of ${url}`);
     };
-
-    let doNothing = () => {
-      bad_call();           // Doesn't exists
+    
+    function doNothing() {
+      bad_call();             // Doesn't exists
     }
 
+    doNothing();
   </script>
 </body>
 

@@ -48,16 +48,6 @@
     }
   </style>
 
-  <script src="https://cdn.trackjs.com/agent/v3/latest/t.js"></script>
-  <script>
-    window.TrackJS && TrackJS.install({ 
-      token: "7e6c745cecc14c2080278e7aea461499",
-      application: "console-buttons"
-      // for more configuration options, see https://docs.trackjs.com
-    });
-    TrackJS.track('Testing TrackJS!');
-  </script>
-
 </head>
 
 <body>
@@ -97,6 +87,16 @@
       <button>Trigger a Global Error</button>
     </section>
   </main>
+  
+  <script src="https://cdn.trackjs.com/agent/v3/latest/t.js"></script>
+  <script>
+    window.TrackJS && TrackJS.install({ 
+      token: "7e6c745cecc14c2080278e7aea461499",
+      application: "console-buttons"
+      // for more configuration options, see https://docs.trackjs.com
+    });
+    TrackJS.track('Testing TrackJS!');
+  </script>
 
   <script>
     let form = document.querySelector('form');
@@ -277,7 +277,7 @@
     });
     
     window.onerror = function(message, url, line, col, error) {
-      alert(`${message}\n At ${line}:${col} of ${url}`);
+      console.error(`${message}\n At ${line}:${col} of ${url}`);
     };
     
     function doNothing() {

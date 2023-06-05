@@ -228,10 +228,6 @@
       console.error('finally');
     }
 
-
-
-
-
     /* Step 4 - Throw and Custom Errors
      * Now explore the use of `throw` and extending the Error object to use a custom error type.  The article here does a 
      * good job of explaining how this goes: Custom errors, extending Error (javascript.info)Links to an external site.
@@ -273,7 +269,7 @@
 
     triggerGlobalErrorBtn.addEventListener('click', function handleBtnClick() {
       console.log('Triggering a global error');
-      boom();                  // Doesn't exists
+      boom();                  // ERROR: Doesn't exists
     });
     
     window.onerror = function(message, url, line, col, error) {
@@ -281,7 +277,7 @@
     };
     
     function doNothing() {
-      bad_call();             // Doesn't exists
+      bad_call();             // ERROR: Doesn't exists
     }
 
     doNothing();
